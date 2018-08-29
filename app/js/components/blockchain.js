@@ -38,7 +38,10 @@ class Blockchain extends React.Component {
 
      if (EmbarkJS.isNewWeb3()) {
         CrowdFund.methods.createCampaign(this.state.name, this.state.description, this.state.beneficiary, this.state.coordinator,
-      this.state.goal, this.state.beneficiaryAddr, this.state.duration, this.state.openDate).send();
+      this.state.goal, this.state.beneficiaryAddr, this.state.duration, this.state.openDate).send({from: web3.eth.defaultAccount, gas:4000000}).then(function(){
+
+      });
+
   
         } else {
             alert("es kaa");
@@ -64,7 +67,21 @@ class Blockchain extends React.Component {
       e.preventDefault();
       
       if (EmbarkJS.isNewWeb3()) {
-        CrowdFund.methods.len().call().then(function(res){console.log(res)});
+        let cc = CrowdFund.methods.len().call().then(function(res){
+           //console.log(res);
+        });
+        console.log("cc*****************************************************************************" )
+        //console.log(String(CrowdFund.methods.getFund(0)));
+        console.log("555555555555555555555555555555555555555555555555555555555555")
+        //console.log(JSON.parse(CrowdFund.methods.getFund(0)));
+        console.log("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq")
+        CrowdFund.methods.fundings(0).call().then(function(res){
+          console.log(res[0])
+        })
+       
+
+
+        //console.log(JSON.parse(cc[0]) )
           //.then(_value => this.setValue(e))
       } else {
         /*SimpleStorage.get()

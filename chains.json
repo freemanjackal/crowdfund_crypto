@@ -54,5 +54,89 @@
         "address": "0xB89D68FF60A00f867B797a9b337644E87a222bBA"
       }
     }
+  },
+  "0x54b3b3d505a58ab6eac3dffa379abe717a06e686b258b65eee64d1e94fb6a9e7": {
+    "contracts": {
+      "0xdde3ba61eed365ed5e0a7f63f133a7aa5e432f3b19b2841eca5b8f70267ae40b": {
+        "name": "CrowdFund",
+        "address": "0x8Ee0710E45822fc76B85E546939c125046678e92"
+      },
+      "0xc544d5e1e0ee69fa6db75e9a8a582eadada39c6669f9942f2233edb56a4d7376": {
+        "name": "FundVault",
+        "address": "0xeaaC338E5cBFF934894D3565c1ED10d43dB24cd8"
+      },
+      "0xb2db3d72fea091b333c17e7f494caa8cfad7f61cdd8c53f5d2f94c3fd7d7afa9": {
+        "name": "MathLib",
+        "address": "0xDE6C0E3C02ee78d7b6a43009f35687Ad270ec5AE"
+      },
+      "0xe578543de06b372482c9f6a594771440bcd6473e76c9a923420d2baec7a24939": {
+        "name": "Ownable",
+        "address": "0x6c131188398819dD46f7f9448C25908BB284a01C"
+      }
+    }
+  },
+  "0x3e771a1a3cb8762ab457a34f37e8af1ab56f0c359d867d502714fcc176468497": {
+    "contracts": {
+      "0xdde3ba61eed365ed5e0a7f63f133a7aa5e432f3b19b2841eca5b8f70267ae40b": {
+        "name": "CrowdFund",
+        "address": "0x1cc93CeDF04b000Ee36Ccd02E95f167C2f3afE0A"
+      },
+      "0xc544d5e1e0ee69fa6db75e9a8a582eadada39c6669f9942f2233edb56a4d7376": {
+        "name": "FundVault",
+        "address": "0x6427A6200Bed37FC1e512BdeA49D25Aa9089CF47"
+      },
+      "0xb2db3d72fea091b333c17e7f494caa8cfad7f61cdd8c53f5d2f94c3fd7d7afa9": {
+        "name": "MathLib",
+        "address": "0x8C74e6cCd38c8B61B874B0514577206a0b8Dab98"
+      },
+      "0xe578543de06b372482c9f6a594771440bcd6473e76c9a923420d2baec7a24939": {
+        "name": "Ownable",
+        "address": "0xAACD4A4624632CbA84adCEda845dE2c1c265f832"
+      },
+      "0x02eeffc37476c3aed7669caefd67ea0105f6728101c34f6c704d17aee60a8652": {
+        "name": "CrowdFund",
+        "address": "0x2e465c6170720cE7AF68Cfc0bDB4208fc28833D8"
+      },
+      "0x7f5ea96a430b1855f9202da86f1146293fd3cbf6776cd7e863af84895b66b0f3": {
+        "name": "CrowdFund",
+        "address": "0xFf22741dea1254c802120D48E295a0f5AdDf05e9"
+      },
+      "0xf5e68f4ef9dc2c88d66e5e53d33d2386c2e883368a8874d9c369b990bd7141be": {
+        "name": "CrowdFund",
+        "address": "0xf7dEF30e46B2A1cd8BC36Ce46957591E88D5863e"
+      },
+      "0x9ea2ba6920727decfeb08c3c4661aa6f97ac3287d48a39bb10b99c77de55d7ae": {
+        "name": "CrowdFund",
+        "address": "0xFBA961F78348c56dFA9cDd057214C661e42Fa289"
+      }
+    }
+  },
+  "0x2d534f23b4b46859cd6024f88469afae66b7d3f50a81b755d46fa79af64d328a": {
+    "contracts": {
+      "0xf5e68f4ef9dc2c88d66e5e53d33d2386c2e883368a8874d9c369b990bd7141be": {
+        "name": "CrowdFund",
+        "address": "0x53F4a2B5b09BcCC6132a8C9577a6440F99093d47"
+      },
+      "0xc544d5e1e0ee69fa6db75e9a8a582eadada39c6669f9942f2233edb56a4d7376": {
+        "name": "FundVault",
+        "address": "0x27Ab5484F1cD38AE77ae34605D72503ebBcA3338"
+      },
+      "0xb2db3d72fea091b333c17e7f494caa8cfad7f61cdd8c53f5d2f94c3fd7d7afa9": {
+        "name": "MathLib",
+        "address": "0xC0F44558332E57679F3d3b45a5d280f036f2487f"
+      },
+      "0xe578543de06b372482c9f6a594771440bcd6473e76c9a923420d2baec7a24939": {
+        "name": "Ownable",
+        "address": "0x89300ce924195467F89415FBD6A5A750D3114F67"
+      },
+      "0xfc44058f7ed9f7a9d8b3c8aae08c2ff9db384c9384c6002e09359f11f29f3179": {
+        "name": "CrowdFund",
+        "address": "0x9bb9A74d2Cda8944d8eb30eCA22924a00F3A18F9"
+      },
+      "0x5aac8fb0b4f4f9b9c3eb16693db710a2809cb02dba35524b12380aa7253cfa49": {
+        "name": "CrowdFund",
+        "address": "0x94b09B85188783F6ff1dC8D6ED57f89af0F9Be4f"
+      }
+    }
   }
 }
