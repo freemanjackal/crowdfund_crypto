@@ -33,9 +33,10 @@ module.exports = {
     gas: "auto",
     contracts: {
       // example:
-      //SimpleStorage: {
+      CrowdFund: {
+        fromIndex: 0,
       //  args: [ 100 ]
-      //}
+      }
     }
   }
 };

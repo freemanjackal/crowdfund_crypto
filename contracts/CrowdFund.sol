@@ -43,6 +43,9 @@ struct Fund {
   event CrowdFundCreated(string name, uint goal, uint32 duration);
 
   function constructor( )  public {
+    fundings.push(Fund("name", "beneficiary", "coordinator", 0, 100, Util("description", 0x32Be343B94f860124dC4fEe278FDCBD38C102D88, 2, 
+                 12, State.Active, Validation.Normal)));
+   
     //vault = new FundVault(ethVaultAddr); // addr where funds will be forwarded after ico finalized and sofcapt(goal) is reached
   }
 
@@ -108,14 +111,18 @@ struct Fund {
   }
 
   function createCampaign(string name, string description, string beneficiary, string coordinator,
-    uint goal, uint amount,  address beneficiaryAddr, uint32 duration, uint32 openDate) public {
+    uint goal, address beneficiaryAddr, uint32 duration, uint32 openDate) public {
 
-    fundings.push(Fund(name, beneficiary, coordinator, goal, 0, Util(description, beneficiaryAddr, duration, 
+    fundings.push(Fund(name, beneficiary, coordinator, 0, goal, Util(description, beneficiaryAddr, duration, 
                  openDate, State.Active, Validation.Normal)));
     emit CrowdFundCreated(name, goal, duration);
 
   }
   /////vault contract
+
+  function len() public constant returns(uint){
+    return fundings.length;
+  }
 
   function refundV(uint cc, address ss ){
 

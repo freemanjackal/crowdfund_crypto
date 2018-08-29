@@ -1,7 +1,7 @@
 import EmbarkJS from 'Embark/EmbarkJS';
-//import SimpleStorage from 'Embark/contracts/SimpleStorage';
+import CrowdFund from 'Embark/contracts/CrowdFund';
 import React from 'react';
-import { Form, FormGroup, FormControl, HelpBlock, Button } from 'react-bootstrap';
+import { Form, FormGroup, FormControl, HelpBlock, Button, Col, Label, ControlLabel, Checkbox } from 'react-bootstrap';
  
 class Blockchain extends React.Component {
 
@@ -9,9 +9,14 @@ class Blockchain extends React.Component {
       super(props);
   
       this.state = {
-        valueSet: 10,
-        valueGet: "",
-        logs: []
+        name: "",
+        description: "",
+        beneficiary: "",
+        coordinator: "",
+        goal: 0,
+        beneficiaryAddr: "",
+        duration: "",
+        openDate: "",
       }
     }
   
@@ -19,9 +24,30 @@ class Blockchain extends React.Component {
       this.setState({valueSet: e.target.value});
     }
   
+  handleInputChange(event) {
+    const target = event.target;
+    //const value = target.type === 'checkbox' ? target.checked : target.value;
+    const value = target.value;
+    const name = target.name;
+    this.setState({
+      [name]: value
+    });
+  }
+  handleSubmit(event){
+      event.preventDefault();
+
+     if (EmbarkJS.isNewWeb3()) {
+        CrowdFund.methods.createCampaign(this.state.name, this.state.description, this.state.beneficiary, this.state.coordinator,
+      this.state.goal, this.state.beneficiaryAddr, this.state.duration, this.state.openDate).send();
+  
+        } else {
+            alert("es kaa");
+
+      }
+    }
     setValue(e){
       e.preventDefault();
-  
+      return;
       var value = parseInt(this.state.valueSet, 10);
   
       // If web3.js 1.0 is being used
@@ -34,13 +60,12 @@ class Blockchain extends React.Component {
       }
     }
   
-    getValue(e){
+    get(e){
       e.preventDefault();
       
       if (EmbarkJS.isNewWeb3()) {
-        /*SimpleStorage.methods.get().call()
-          .then(_value => this.setState({valueGet: _value}))
-        this._addToLog("SimpleStorage.methods.get(console.log)");*/
+        CrowdFund.methods.len().call().then(function(res){console.log(res)});
+          //.then(_value => this.setValue(e))
       } else {
         /*SimpleStorage.get()
           .then(_value => this.setState({valueGet: _value}));
@@ -52,40 +77,95 @@ class Blockchain extends React.Component {
       //this.state.logs.push(txt);
      // this.setState({logs: this.state.logs});
     }
-  
+  //string name, string description, string beneficiary, string coordinator,
+//    uint goal, address beneficiaryAddr, uint32 duration, uint32 openDate) public {
+
     render(){
       return (<React.Fragment>
-          <h3> 1. Set the value in the blockchain</h3>
-          <Form inline>
-            <FormGroup>
-              <FormControl
-                type="text"
-                defaultValue={this.state.valueSet}
-                onChange={(e) => this.handleChange(e)} />
-              <Button bsStyle="primary" onClick={(e) => this.setValue(e)}>Set Value</Button>
-              <HelpBlock>Once you set the value, the transaction will need to be mined and then the value will be updated on the blockchain.</HelpBlock>
+          <h3> Fill the data</h3>
+          <Form horizontal>
+            <FormGroup controlId="name">
+              <Col componentClass={ControlLabel} sm={2}>
+              Name
+              </Col>
+                <Col sm={3}>
+                <FormControl name="name" type="text" placeholder="Name" onChange={(e) => this.handleInputChange(e)}/>
+              </Col>
+              </FormGroup>
+
+            <FormGroup controlId="formHorizontalPassword">
+                <Col componentClass={ControlLabel} sm={2}>
+                    Descrption
+                </Col>
+                <Col sm={3}>
+                    <FormControl name="description" type="textarea" placeholder="Description" onChange={(e) => this.handleInputChange(e)}/>
+                </Col>
             </FormGroup>
-          </Form>
-          
-          <h3> 2. Get the current value</h3>
-          <Form inline>
-            <FormGroup>
-              <HelpBlock>current value is <span className="value">{this.state.valueGet}</span></HelpBlock>
-              <Button bsStyle="primary" onClick={(e) => this.getValue(e)}>Get Value</Button>
-              <HelpBlock>Click the button to get the current value. The initial value is 100.</HelpBlock>
+
+            <FormGroup controlId="beneficiary">
+                <Col componentClass={ControlLabel} sm={2}>
+                    Bneficiary name
+                </Col>
+                <Col sm={3}>
+                    <FormControl type="text" name="beneficiary" placeholder="beneficiary name" onChange={(e) => this.handleInputChange(e)}/>
+                </Col>
             </FormGroup>
-          </Form>
-          
-          <h3> 3. Contract Calls </h3>
-          <p>Javascript calls being made: </p>
-          <div className="logs">
-          {
-            this.state.logs.map((item, i) => <p key={i}>{item}</p>)
-          }
-          </div>
+            <FormGroup controlId="coordinator">
+                <Col componentClass={ControlLabel} sm={2}>
+                    Coordinator
+                </Col>
+                <Col sm={3}>
+                    <FormControl type="text" name="coordinator" placeholder="coordinator name" onChange={(e) => this.handleInputChange(e)}/>
+                </Col>
+            </FormGroup>
+            <FormGroup controlId="goal">
+                <Col componentClass={ControlLabel} sm={2}>
+                    Goal campaign
+                </Col>
+                <Col sm={3}>
+                    <FormControl type="text" name="goal" placeholder="hope to raise" onChange={(e) => this.handleInputChange(e)}/>
+                </Col>
+            </FormGroup>
+            <FormGroup controlId="addrbenef">
+                <Col componentClass={ControlLabel} sm={2}>
+                    Eth beneficiary address
+                </Col>
+                <Col sm={3}>
+                    <FormControl type="text" name="beneficiaryAddr" placeholder="Eth address" onChange={(e) => this.handleInputChange(e)}/>
+                </Col>
+            </FormGroup>
+            <FormGroup controlId="duration">
+                <Col componentClass={ControlLabel} sm={2}>
+                    Duration  of campaign
+                </Col>
+                <Col sm={3}>
+                    <FormControl type="text" name="duration" placeholder="campaign duration" onChange={(e) => this.handleInputChange(e)}/>
+                </Col>
+            </FormGroup>
+            <FormGroup controlId="open">
+                <Col componentClass={ControlLabel} sm={2}>
+                    Open date
+                </Col>
+                <Col sm={3}>
+                    <FormControl type="text" name="openDate" placeholder="open date" onChange={(e) => this.handleInputChange(e)}/>
+                </Col>
+            </FormGroup>
+
+            
+            <FormGroup>
+                <Col smOffset={2} sm={3}>
+                  <Button type="submit" onClick={(e) => this.handleSubmit(e)}>Create Campaign</Button>
+                </Col>
+
+                <Col smOffset={2} sm={3}>
+                  <Button type="submit" onClick={(e) => this.get(e)}>get length</Button>
+                </Col>
+            </FormGroup>
+
+          </Form>;          
       </React.Fragment>
       );
     }
-  }
-
+  
+}
   export default Blockchain;
