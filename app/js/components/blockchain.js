@@ -44,49 +44,25 @@ class Blockchain extends React.Component {
 
   
         } else {
-            alert("es kaa");
+            alert("not supported");
 
       }
     }
-    setValue(e){
-      e.preventDefault();
-      return;
-      var value = parseInt(this.state.valueSet, 10);
-  
-      // If web3.js 1.0 is being used
-      if (EmbarkJS.isNewWeb3()) {
-        //SimpleStorage.methods.set(value).send({from: web3.eth.defaultAccount});
-        this._addToLog("SimpleStorage.methods.set(value).send({from: web3.eth.defaultAccount})");
-      } else {
-       // SimpleStorage.set(value);
-        this._addToLog("#blockchain", "SimpleStorage.set(" + value + ")");
-      }
-    }
+
   
     get(e){
       e.preventDefault();
       
       if (EmbarkJS.isNewWeb3()) {
         let cc = CrowdFund.methods.len().call().then(function(res){
-           //console.log(res);
         });
-        console.log("cc*****************************************************************************" )
-        //console.log(String(CrowdFund.methods.getFund(0)));
-        console.log("555555555555555555555555555555555555555555555555555555555555")
-        //console.log(JSON.parse(CrowdFund.methods.getFund(0)));
-        console.log("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq")
+    
         CrowdFund.methods.fundings(0).call().then(function(res){
           console.log(res[0])
         })
        
-
-
-        //console.log(JSON.parse(cc[0]) )
-          //.then(_value => this.setValue(e))
       } else {
-        /*SimpleStorage.get()
-          .then(_value => this.setState({valueGet: _value}));
-        this._addToLog("SimpleStorage.get()");*/
+        
       }
     }
   
@@ -94,8 +70,6 @@ class Blockchain extends React.Component {
       //this.state.logs.push(txt);
      // this.setState({logs: this.state.logs});
     }
-  //string name, string description, string beneficiary, string coordinator,
-//    uint goal, address beneficiaryAddr, uint32 duration, uint32 openDate) public {
 
     render(){
       return (<React.Fragment>
@@ -174,12 +148,9 @@ class Blockchain extends React.Component {
                   <Button type="submit" onClick={(e) => this.handleSubmit(e)}>Create Campaign</Button>
                 </Col>
 
-                <Col smOffset={2} sm={3}>
-                  <Button type="submit" onClick={(e) => this.get(e)}>get length</Button>
-                </Col>
             </FormGroup>
 
-          </Form>;          
+          </Form>        
       </React.Fragment>
       );
     }
