@@ -25,9 +25,11 @@ struct Fund {
     address beneficiaryAddr;
     uint32 duration;
     uint32 openDate;
-    string state;
-    string validState;
-    mapping (uint => Contributor) contributors;
+    State state;
+    Validation validState;
+    uint numbrecontributors;
+    uint amount;
+    mapping (uint => mapping(address => uint)) contributors;
 
   }
 
@@ -39,10 +41,10 @@ struct Fund {
     string state;
     string validState;
   }*/
-  struct Contributor {
+ /* struct Contributor {
         address addr;
         uint amount;
-    }
+    }*/
 
 
   Fund[] public fundings;
@@ -128,15 +130,17 @@ struct Fund {
    /* fundings.push(Fund(name, beneficiary, coordinator, 0, goal, Util(description, beneficiaryAddr, duration, 
                  openDate, "Active", "Validation.Normal")));*/
 
-    fundings.push(Fund(name, beneficiary, goal, description, beneficiaryAddr, duration, 
-                 openDate, "Active", "Validation.Normal"));             
+    //Contributor cont = Contributor(4, "0x32Be343B94f860124dC4fEe278FDCBD38C102D88");
+    fundings.push(Fund(name,  beneficiary, goal, description, beneficiaryAddr, duration, 
+                 openDate, State.Active, Validation.Normal, 0, 0));  
+                            
     emit CrowdFundCreated(name, goal, duration);
 
   }
 
-  function getFund(uint index) view public returns(Fund){
+ /* function getFund(uint index) view public returns(Fund){
     return fundings[index];
-  }
+  }*/
   /////vault contract
 
   function len() public constant returns(uint){

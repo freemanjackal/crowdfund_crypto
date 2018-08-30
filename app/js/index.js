@@ -4,6 +4,7 @@ import { Tabs, Tab } from 'react-bootstrap';
 
 import EmbarkJS from 'Embark/EmbarkJS';
 import Blockchain from './components/blockchain';
+import Campaigns from './components/list_campaigs';
 //import Whisper from './components/whisper';
 //import Storage from './components/storage';
 
@@ -57,13 +58,13 @@ class App extends React.Component {
 
   render(){
     return (
-      <div><h3>Contribute to make a better world</h3>
+      <div><h3>Contribute to make a better world </h3>
       <Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
         <Tab eventKey={1} title="Create crowdfuning campaign">
           <Blockchain />
         </Tab>
         <Tab eventKey={2} title="List of campaigns">
-         
+         <Campaigns/>
         </Tab>
         
       </Tabs>
