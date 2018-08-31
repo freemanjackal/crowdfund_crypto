@@ -42,15 +42,11 @@ class Campaigns extends React.Component {
     }
 
     setLenCampaigns(len){
-      console.log(typeof(this.state.campaigns_number ))
       console.log(typeof(len ))
 
       let longitud = parseInt(len)
-      console.log(typeof(longitud ))
-
       if(this.state.campaigns_number != longitud)
-        console.log("dftes")
-      for(let i = this.state.campaigns_number; i < len; i ++){
+       for(let i = this.state.campaigns_number; i < len; i ++){
           CrowdFund.methods.fundings(i).call().then((res)=> this._addToCampaign(res))
           
             this.state.campaigns_number ++;
@@ -64,6 +60,11 @@ class Campaigns extends React.Component {
     }
     viewDetails(e){
       alert("details")
+    }
+    //onClick={this.props.changeActiveTab}
+    changeActiveTabe(e){
+      console.log("child " + e[0]+ e[1])
+      this.props.changeActiveTab(e);
     }
 
     render(){
@@ -84,7 +85,7 @@ class Campaigns extends React.Component {
               <p >{item[0]}</p>
               <p >{item[1]}</p>
               
-              <Button type="submit" onClick={(e) => this.viewDetails(e)}>get length</Button>
+              <Button type="submit" value={item}  onClick={()=>this.changeActiveTabe(item)}>get length</Button>
               
             </div>
             </Col>

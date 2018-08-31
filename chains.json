@@ -214,5 +214,25 @@
         "address": "0x494748735312D87C54Ff36E9dc71f90fb800D7Df"
       }
     }
+  },
+  "0x8884032de5034677f2889c40cf182d1a39047a950e5406953426e3d7deb1c211": {
+    "contracts": {
+      "0xd412a9257fdfe94733b59a6ae24004b93c410d3ca403d3c866b5d2cb303c3225": {
+        "name": "CrowdFund",
+        "address": "0x6427A6200Bed37FC1e512BdeA49D25Aa9089CF47"
+      },
+      "0xc544d5e1e0ee69fa6db75e9a8a582eadada39c6669f9942f2233edb56a4d7376": {
+        "name": "FundVault",
+        "address": "0x10Aa1c9C2ad79b240Dc612cd2c0c0f5513bAfF28"
+      },
+      "0xb2db3d72fea091b333c17e7f494caa8cfad7f61cdd8c53f5d2f94c3fd7d7afa9": {
+        "name": "MathLib",
+        "address": "0xd8a512EBD6fd82f44dFFD968EEB0835265497d20"
+      },
+      "0xe578543de06b372482c9f6a594771440bcd6473e76c9a923420d2baec7a24939": {
+        "name": "Ownable",
+        "address": "0x494748735312D87C54Ff36E9dc71f90fb800D7Df"
+      }
+    }
   }
 }

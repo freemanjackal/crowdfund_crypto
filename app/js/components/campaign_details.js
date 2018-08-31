@@ -8,41 +8,36 @@ class CampaignDetails extends React.Component {
 
     constructor(props) {
       super(props);
-  
       this.state = {
-        
+        campaign: props.idCampaign
         
       }
     }
   
-  
+  addComment(){
+
+    
+  }
 
     render(){
       return (<React.Fragment>
             <div className="container-fluid">
   <div className="row content">
     <div className="col-sm-3 sidenav">
-      <h4>John's Blog</h4>
+      <h4>{this.props.idCampaign[0]}</h4>
       <ul className="nav nav-pills nav-stacked">
-        <li className="active"><a href="#section1">Home</a></li>
+        <li className="active"><a href="#section1">Home--{this.state.campaign[1]}</a></li>
       </ul>
-      <div className="input-group">
-        <FormControl type="text" name="duration" placeholder="campaign duration" onChange={(e) => this.handleInputChange(e)}/>
-        <span className="input-group-btn">
-          <button className="btn btn-default" type="button">
-            <span className="glyphicon glyphicon-search"></span>
-          </button>
-        </span>
-      </div>
+      
     </div>
 
     <div className="col-sm-9">
            
-      <h4><small>RECENT POSTS</small></h4>
-      <h2>Officially Blogging</h2>
+      <h4><small>Goal: {this.props.idCampaign[2]}</small></h4>
+      <h2>Campaign duration</h2>
       <h5><span className="glyphicon glyphicon-time"></span> Post by John Doe, Sep 24, 2015.</h5>
-      <h5><span className="label label-success">Lorem</span></h5>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      <h5><span className="label label-success">Crowdfunding description</span></h5>
+      <p>{this.props.idCampaign[3]}</p>
 
       <h4>Leave a Comment:</h4>
       <form role="form">
