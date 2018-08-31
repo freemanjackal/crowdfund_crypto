@@ -20,7 +20,7 @@ class App extends React.Component {
     this.idCampaign = "1111111111";
     this.state = {
       key: 1,
-      idC: "-111111111111111111111111111111111111111111111111111"
+      idC: "-1111111111111"
      // whisperEnabled: false,
       //storageEnabled: false
     }
@@ -77,6 +77,16 @@ class App extends React.Component {
     if(key == 2)
       this.child.getCampaigns(this.child);
     
+  }
+
+  submitIpfs(){
+    EmbarkJS.Storage.saveText("hello world")
+  .then(function(hash) {console.log(hash)})
+  .catch(function(err) {
+      if(err){
+        console.log("IPFS saveText Error => " + err.message);
+      }
+  });
   }
 
   render(){

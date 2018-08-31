@@ -85,7 +85,7 @@ class Campaigns extends React.Component {
               <p >{item[0]}</p>
               <p >{item[1]}</p>
               
-              <Button type="submit" value={item}  onClick={()=>this.changeActiveTabe(item)}>get length</Button>
+              <Button type="submit" className="btn btn-success" value={item}  onClick={()=>this.changeActiveTabe(item)}>View details</Button>
               
             </div>
             </Col>

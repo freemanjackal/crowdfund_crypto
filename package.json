@@ -8,7 +8,9 @@
   "author": "",
   "license": "ISC",
   "homepage": "",
-  "devDependencies": {},
+  "devDependencies": {
+    "babel-plugin-transform-object-rest-spread": "^6.26.0"
+  },
   "dependencies": {
     "react": "^16.4.2",
     "react-bootstrap": "^0.32.3",

@@ -32,4 +32,14 @@ module.exports = {
       getUrl: "http://localhost:8080/ipfs/"
     }
   }
+  /*"development": {
+  "enabled": true,
+  "upload":{
+    "provider": "ipfs",
+    "host": "ipfs.infura.io",
+    "port": 80,
+    "protocol": "https",
+    "getUrl": "https://ipfs.infura.io/ipfs/"
+  }
+}*/
 };

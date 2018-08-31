@@ -1,7 +1,8 @@
 import EmbarkJS from 'Embark/EmbarkJS';
 import CrowdFund from 'Embark/contracts/CrowdFund';
 import React from 'react';
-import { Form, FormGroup, FormControl, HelpBlock, Button, Col, Label, ControlLabel, Checkbox } from 'react-bootstrap';
+import FieldGroup from './fieldgroup.js';
+import { Form, FormGroup, FormControl, HelpBlock, Button, Col, Label, ControlLabel} from 'react-bootstrap';
  
 class Blockchain extends React.Component {
 
@@ -17,6 +18,8 @@ class Blockchain extends React.Component {
         beneficiaryAddr: "",
         duration: "",
         openDate: "",
+        fileUpload: null,
+        imageHash: ""
       }
     }
   
@@ -33,12 +36,44 @@ class Blockchain extends React.Component {
       [name]: value
     });
   }
+  
+
+  submitFileIpfs(event){
+    event.preventDefault();
+    
+    EmbarkJS.Storage.uploadFile(this.state.fileUpload)
+      .then(function(hash) {console.log(hash)})
+      .catch(function(err) {
+          if(err){
+            console.log("IPFS saveText Error => " + err);
+          }
+      });
+      
+  }
+
+  addFile(event){
+    event.preventDefault();
+    this.setState({ fileUpload: [event.target] }, ()=>{
+        EmbarkJS.Storage.uploadFile(this.state.fileUpload)
+          .then((hash)=> {
+                    this.setState({imageHash: hash})
+                    console.log(EmbarkJS.Storage.getUrl(hash))
+                  })
+          .catch(function(err) {
+              if(err){
+              console.log("IPFS saveText Error => " + err);
+            }
+          });
+      })
+      //console.log("file")
+  }
+
   handleSubmit(event){
       event.preventDefault();
 
      if (EmbarkJS.isNewWeb3()) {
         CrowdFund.methods.createCampaign(this.state.name, this.state.description, this.state.beneficiary, this.state.coordinator,
-      this.state.goal, this.state.beneficiaryAddr, this.state.duration, this.state.openDate).send({from: web3.eth.defaultAccount, gas:4000000}).then(function(){
+      this.state.goal, this.state.beneficiaryAddr, this.state.duration, this.state.openDate, this.state.imageHash).send({from: web3.eth.defaultAccount, gas:4000000}).then(function(){
 
       });
 
@@ -49,32 +84,41 @@ class Blockchain extends React.Component {
       }
     }
 
-  
-    get(e){
-      e.preventDefault();
-      
-      if (EmbarkJS.isNewWeb3()) {
-        let cc = CrowdFund.methods.len().call().then(function(res){
-        });
-    
-        CrowdFund.methods.fundings(0).call().then(function(res){
-          console.log(res[0])
-        })
-       
-      } else {
-        
-      }
-    }
+
   
     _addToLog(txt){
       //this.state.logs.push(txt);
      // this.setState({logs: this.state.logs});
     }
 
+            //<FieldGroup id="formControlsFile" type="file" label="File" help="Select an image to upload for the campaign"/>   
+/*<FormGroup>
+                <ControlLabel htmlFor="fileUpload" style={{ cursor: "pointer" }}><h3><Label bsStyle="success">Add file</Label></h3>
+                    <FormControl id="fileUpload" type="file" accept=".txt" onChange={this.addFile} style={{ display: "none" }}/>
+                </ControlLabel>
+            </FormGroup>
+            
+            <Form inline>
+                <FormGroup>
+                    <FormControl
+                        type="file"
+                        onChange={(e) => this.addFile(e)} />
+                    <Button bsStyle="primary" onClick={(e) => this.submitFileIpfs(e)}>Upload</Button>
+                    <HelpBlock>generated hash: <span className="fileHash">{this.state.fileHash}</span></HelpBlock>
+                </FormGroup>
+            </Form>
+        //    <FieldGroup id="formControlsFile" type="file" label="File" accept=".jpg" help="Select an image to upload for the campaign" onChange={(e) => this.addFile(e)}/>   
+*/
+
     render(){
       return (<React.Fragment>
           <h3> Fill the data</h3>
+          
+
           <Form horizontal>
+              <FieldGroup id="formControlsFile" type="file" label="File" accept=".jpg" help="Select an image to upload for the campaign" onChange={(e) => this.addFile(e)}/>   
+
+              
             <FormGroup controlId="name">
               <Col componentClass={ControlLabel} sm={2}>
               Name
@@ -89,7 +133,7 @@ class Blockchain extends React.Component {
                     Descrption
                 </Col>
                 <Col sm={3}>
-                    <FormControl name="description" type="textarea" placeholder="Description" onChange={(e) => this.handleInputChange(e)}/>
+                    <FormControl name="description" componentClass="textarea" placeholder="Description" onChange={(e) => this.handleInputChange(e)}/>
                 </Col>
             </FormGroup>
 
@@ -146,6 +190,12 @@ class Blockchain extends React.Component {
             <FormGroup>
                 <Col smOffset={2} sm={3}>
                   <Button type="submit" onClick={(e) => this.handleSubmit(e)}>Create Campaign</Button>
+                </Col>
+
+            </FormGroup>
+            <FormGroup>
+                <Col smOffset={2} sm={3}>
+                  <Button type="submit" onClick={(e) => this.submitFileIpfs(e)}>submit ipfs</Button>
                 </Col>
 
             </FormGroup>

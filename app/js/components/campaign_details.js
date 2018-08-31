@@ -9,8 +9,41 @@ class CampaignDetails extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        campaign: props.idCampaign
+        campaign: props.idCampaign,
+        contribution: 0
         
+      }
+    }
+
+    handleInputChange(event) {
+    const target = event.target;
+    //const value = target.type === 'checkbox' ? target.checked : target.value;
+    const value = target.value;
+    this.setState({
+      contribution: value
+    });
+  }
+
+    handleContribution(e){
+      console.log("contribution");
+      e.preventDefault();
+
+     if (EmbarkJS.isNewWeb3()) {
+        CrowdFund.methods.sendFunds(0).send({from: web3.eth.accounts[0], gas: 3000000, value: 2}).then((res)=> {
+          console.log(this.props.idCampaign[10]);
+          console.log(this.state.contribution);
+          console.log(parseFloat(this.props.idCampaign[10]) + parseFloat(this.state.contribution));
+          this.props.idCampaign[10] = parseFloat(this.props.idCampaign[10]) + parseFloat(this.state.contribution); 
+          console.log(this.props.idCampaign[10]);
+          this.forceUpdate()
+
+        });
+
+
+  
+        } else {
+            alert("not supported");
+
       }
     }
   
@@ -25,20 +58,33 @@ class CampaignDetails extends React.Component {
   <div className="row content">
     <div className="col-sm-3 sidenav">
       <h4>{this.props.idCampaign[0]}</h4>
-      <ul className="nav nav-pills nav-stacked">
-        <li className="active"><a href="#section1">Home--{this.state.campaign[1]}</a></li>
-      </ul>
-      
+            
     </div>
 
     <div className="col-sm-9">
            
-      <h4><small>Goal: {this.props.idCampaign[2]}</small></h4>
+      <h4><small>Goal: {this.props.idCampaign[2]}-----------Contributed: {this.props.idCampaign[10]}</small></h4>
       <h2>Campaign duration</h2>
-      <h5><span className="glyphicon glyphicon-time"></span> Post by John Doe, Sep 24, 2015.</h5>
+      <h5><span className="glyphicon glyphicon-time"></span> {this.props.idCampaign[5]}</h5>
       <h5><span className="label label-success">Crowdfunding description</span></h5>
       <p>{this.props.idCampaign[3]}</p>
+      <div className="col-sm-12">
+      <Form inline>
 
+          <FormGroup controlId="open" className="col-sm-7">
+                <Col componentClass={ControlLabel} sm={5}>
+                    Eth contribution
+                </Col>
+                    <FormControl type="text" name="contribution" placeholder="Contribute with Eth" onChange={(e) => this.handleInputChange(e)}/>
+            </FormGroup>
+
+            
+            <FormGroup className="col-sm-4">
+                  <Button type="submit" onClick={(e) => this.handleContribution(e)}>Send contribution</Button>
+
+            </FormGroup>  
+      </Form>
+    </div>
       <h4>Leave a Comment:</h4>
       <form role="form">
         <div className="form-group">

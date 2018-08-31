@@ -29,7 +29,8 @@ struct Fund {
     Validation validState;
     uint numbrecontributors;
     uint amount;
-    mapping (uint => mapping(address => uint)) contributors;
+    string imageHash;
+    mapping (address => uint) contributors;
 
   }
 
@@ -71,20 +72,20 @@ struct Fund {
   }*/
   function goalReached(uint campaign) public returns (bool) {
 
-    //return fundings[campaign].amount >= fundings[campaign].goal;
+    return fundings[campaign].amount >= fundings[campaign].goal;
   }
 
   // crowdfunding campaign finalization 
   function finalize(uint campaign) internal {
-     // fundings[campaign].details.state = State.Closed;
+      fundings[campaign].state = State.Closed;
    
   }
 
 
-  function sendFunds(uint campaign)  {
+  function sendFunds(uint campaign)  payable {
    // vault.deposit.value(msg.value)(msg.sender);
-   //require(fundings[campaign].details.state == State.Active);
-   //require(fundings[campaign].details.validState == Validation.Normal);
+   require(fundings[campaign].state == State.Active);
+   require(fundings[campaign].validState == Validation.Normal);
    deposit(campaign);
   }
 
@@ -96,7 +97,7 @@ struct Fund {
   }
 
   function refund(uint campaign){
-    //require(fundings[campaign].details.validState == Validation.Invalid);
+    require(fundings[campaign].validState == Validation.Invalid);
     //vault.refund(campaign, msg.sender);
     refundV(campaign, msg.sender);
 
@@ -105,10 +106,10 @@ struct Fund {
 
   function withDraw(uint campaign) public  {
     Fund fund = fundings[campaign];
-    //require(fund.details.state == State.Claiming);
+    //require(fund.state == State.Claiming);
     require(msg.sender == fund.beneficiaryAddr);
-    //require(fund.amount > 0);
-    //withDrawFund(fund.beneficiaryAddr, fund.amount);
+    require(fund.amount > 0);
+    withDrawFund(fund.beneficiaryAddr, fund.amount);
     finalize(campaign);
   }
 
@@ -124,7 +125,7 @@ struct Fund {
   }
 
   function createCampaign(string name, string description, string beneficiary, string coordinator,
-    uint goal, address beneficiaryAddr, uint32 duration, uint32 openDate) public {
+    uint goal, address beneficiaryAddr, uint32 duration, uint32 openDate, string imageHash) public {
 
     //fundings.push(Fund(name, beneficiary, coordinator, 0, goal));
    /* fundings.push(Fund(name, beneficiary, coordinator, 0, goal, Util(description, beneficiaryAddr, duration, 
@@ -132,7 +133,7 @@ struct Fund {
 
     //Contributor cont = Contributor(4, "0x32Be343B94f860124dC4fEe278FDCBD38C102D88");
     fundings.push(Fund(name,  beneficiary, goal, description, beneficiaryAddr, duration, 
-                 openDate, State.Active, Validation.Normal, 0, 0));  
+                 openDate, State.Active, Validation.Normal, 0, 0, imageHash));  
                             
     emit CrowdFundCreated(name, goal, duration);
 
@@ -155,7 +156,11 @@ struct Fund {
 
   }
 
-  function deposit(uint campaign){
+  function deposit(uint campaign)internal{
+    uint numbrecontributors = fundings[campaign].numbrecontributors;
+    fundings[campaign].contributors[msg.sender] = msg.value;
+    fundings[campaign].numbrecontributors  = safeAdd(numbrecontributors, 1);
+    fundings[campaign].amount =  safeAdd(fundings[campaign].amount, msg.value);
 
   }
 
