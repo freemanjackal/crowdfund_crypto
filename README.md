@@ -5,12 +5,16 @@ You need to have ipfs locally installed for some features to work properly like 
 ## Usage
 Download the code and move to the source folder.
 > npm install
+
 Run a local ethereum network for testing purposes
 > embark simulator
+
 and then
 > embark run 
+
 or
 > embark run --nodashboard
+
 it will launch a server in locahost:8000
 If you want to test in ethereum testnet you will need to change the network configuration. For more details refer to(embark)[https://embark.status.im/docs/quick_start.html].
 
