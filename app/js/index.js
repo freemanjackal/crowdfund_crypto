@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Tabs, Tab, ProgressBar, Row, Col, Nav, NavItem,PageHeader } from 'react-bootstrap';
+import { Tabs, Tab, ProgressBar, Row, Col, Nav, NavItem,PageHeader, Image } from 'react-bootstrap';
 
 import EmbarkJS from 'Embark/EmbarkJS';
 import Blockchain from './components/blockchain';
@@ -102,6 +102,7 @@ class App extends React.Component {
       
       <div>
       <PageHeader className="text-center ">
+            <Image className="imgBrief logo" src="./images/logo.png"/>
             Contribute to make a better world. <small>Your world.</small>
        <div className="divface">     
       <FacebookShareButton className="face" children={<FacebookIcon size={35}/>} url="http://fundtheworld.crypto"/>

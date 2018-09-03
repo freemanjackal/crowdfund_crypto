@@ -83,6 +83,9 @@ clear: both;
   margin-bottom: -15px;
 
 }
+.logo{
+ // float: left;
+}
 .eth{
   padding-top: 9px;
   padding-bottom: 9px;
