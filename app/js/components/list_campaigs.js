@@ -1,8 +1,8 @@
 import EmbarkJS from 'Embark/EmbarkJS';
 import CrowdFund from 'Embark/contracts/CrowdFund';
 import React from 'react';
-import { Form, FormGroup, FormControl, HelpBlock, Button, Col, Label, ControlLabel, Checkbox } from 'react-bootstrap';
- 
+import { Form, FormGroup, FormControl, HelpBlock, Button, Col, Label, ControlLabel, Checkbox, Image } from 'react-bootstrap';
+import "../../css/font-awesome.min.css";
 class Campaigns extends React.Component {
 
     constructor(props) {
@@ -29,12 +29,13 @@ class Campaigns extends React.Component {
     });
   }
      
-    getCampaigns(comp){
+    getCampaigns(){
       var len = 0;
       if (EmbarkJS.isNewWeb3()) {
         CrowdFund.methods.len().call().then((res)=> this.setLenCampaigns(res));
         for(let i = 0; i < this.len; i ++)
-          CrowdFund.methods.fundings(i).call().then((res)=> this._addToCampaign(res))
+          CrowdFund.methods.fundings(i).call().then((res)=> {
+            this._addToCampaign(res)})
         
       } else {
         
@@ -42,21 +43,30 @@ class Campaigns extends React.Component {
     }
 
     setLenCampaigns(len){
-      console.log(typeof(len ))
 
       let longitud = parseInt(len)
       if(this.state.campaigns_number != longitud)
        for(let i = this.state.campaigns_number; i < len; i ++){
-          CrowdFund.methods.fundings(i).call().then((res)=> this._addToCampaign(res))
-          
+          CrowdFund.methods.fundings(i).call().then((res)=> {
+            res["id"] = i;
+            this._addToCampaign(res)
+          })
+            
             this.state.campaigns_number ++;
         }
     }
+
+    getImg(hash) {
+        let _url = EmbarkJS.Storage.getUrl(hash);
+        return _url;
+
+    }
+
   
     _addToCampaign(campaigns){
+      campaigns['src'] = this.getImg(campaigns[11])//"./blue2.jpg";
+      console.log(campaigns)
       this.state.campaigns.push(campaigns);
-      //console.log(this.state.campaigns.length);
-     // this.setState({logs: this.state.logs});
     }
     viewDetails(e){
       alert("details")
@@ -68,30 +78,32 @@ class Campaigns extends React.Component {
     }
 
     render(){
-      return (<React.Fragment>
+      return (
+          this.state.campaigns_number == 0 ?
+                <h3>No campaigns created yet</h3>    
+
+            :    
+      <React.Fragment>
+      
           <h3>All Campaigns </h3>
-          <Form horizontal>
-            
-
           
-
-            
-          </Form>
-          <div className="">
+          <div sm={12} >
           {
             this.state.campaigns.map((item, i) => 
-            <Col sm={3} key={i}>
-            <div key={i}>
-              <p >{item[0]}</p>
-              <p >{item[1]}</p>
+            <div  key={i} className="ousettt col-sm-3 col-md-3">
+              <Image className="imgBrief" src={this.state.campaigns[i].src}/>
+
+              <p >{item[0].toUpperCase()}</p>
+              <p >{item[1].toUpperCase()}</p>
               
               <Button type="submit" className="btn btn-success" value={item}  onClick={()=>this.changeActiveTabe(item)}>View details</Button>
               
+
             </div>
-            </Col>
             )
           }
-          </div>   
+          </div>  
+
       </React.Fragment>
       );
     }

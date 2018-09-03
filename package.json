@@ -14,6 +14,8 @@
   "dependencies": {
     "react": "^16.4.2",
     "react-bootstrap": "^0.32.3",
-    "react-dom": "^16.4.2"
+    "react-bs-notifier": "^5.0.0",
+    "react-dom": "^16.4.2",
+    "react-share": "^2.3.1"
   }
 }

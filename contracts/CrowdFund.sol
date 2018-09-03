@@ -18,9 +18,7 @@ enum Validation { Normal, Validating, Valid, Invalid }
 struct Fund {
     string name;
     string beneficiary;
-//    string coordinator;
-    uint goal;
-   // Util details;
+    uint256 goal;
     string description;
     address beneficiaryAddr;
     uint32 duration;
@@ -28,7 +26,7 @@ struct Fund {
     State state;
     Validation validState;
     uint numbrecontributors;
-    uint amount;
+    uint256 amount;
     string imageHash;
     mapping (address => uint) contributors;
 
@@ -104,9 +102,9 @@ struct Fund {
     //fundings[campaign].details.state = State.Refunded;
   }
 
-  function withDraw(uint campaign) public  {
+  function withDraw(uint campaign) public {
     Fund fund = fundings[campaign];
-    //require(fund.state == State.Claiming);
+    require(fund.state != State.Closed);
     require(msg.sender == fund.beneficiaryAddr);
     require(fund.amount > 0);
     withDrawFund(fund.beneficiaryAddr, fund.amount);
@@ -125,7 +123,7 @@ struct Fund {
   }
 
   function createCampaign(string name, string description, string beneficiary, string coordinator,
-    uint goal, address beneficiaryAddr, uint32 duration, uint32 openDate, string imageHash) public {
+    uint256 goal, address beneficiaryAddr, uint32 duration, uint32 openDate, string imageHash) public {
 
     //fundings.push(Fund(name, beneficiary, coordinator, 0, goal));
    /* fundings.push(Fund(name, beneficiary, coordinator, 0, goal, Util(description, beneficiaryAddr, duration, 
@@ -152,8 +150,8 @@ struct Fund {
 
   }
 
-  function withDrawFund(address dd, uint amoo){
-
+  function withDrawFund(address beneficiaryAddr, uint256 amount) internal {
+      beneficiaryAddr.transfer(amount);
   }
 
   function deposit(uint campaign)internal{
