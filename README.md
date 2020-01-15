@@ -1,4 +1,4 @@
-# MVP crowdfund crypto project
+# MVP crowdfund crypto project(testing embark features)
 Allow create crowdfunding projects for any purpouse and share it on social media. Right now just configured to accept Ethereum.
 ## Requirements
 You need to have ipfs locally installed for some features to work properly like images. Images uploaded when creating a crowfund project are stored in ipfs and are retrieved from there.
