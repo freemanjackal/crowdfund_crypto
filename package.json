@@ -12,10 +12,10 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0"
   },
   "dependencies": {
-    "react": "^16.4.2",
+    "react": "^16.14.0",
     "react-bootstrap": "^0.32.3",
     "react-bs-notifier": "^5.0.0",
-    "react-dom": "^16.4.2",
+    "react-dom": "^16.14.0",
     "react-share": "^2.3.1"
   }
 }
